@@ -1,9 +1,11 @@
-package backend.Class;
+package backend.Classes;
 
 public class groups {
     public String GroupName;
     public String GroupCategory;
     public int GroupSelected;
+
+    public groups() {}
 
     public groups(String pGroupName, String pGroupCategory, int pGroupSelected){
         this.GroupName = pGroupName;
@@ -12,15 +14,15 @@ public class groups {
     }
 
     public void setGroupName(String pGroupName){
-        this.GroupName = pGroupName;
+        GroupName = pGroupName;
     }
 
     public void setGroupCategory(String pGroupCategory){
-        this.GroupCategory = pGroupCategory;
+        GroupCategory = pGroupCategory;
     }
 
     public void setGroupSelected(int pGroupSelected){
-        this.GroupSelected = pGroupSelected;
+        GroupSelected = pGroupSelected;
     }
 
     public String getGroupName(){

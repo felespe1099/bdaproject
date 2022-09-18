@@ -1,4 +1,4 @@
-package backend.Class;
+package backend.Classes;
 
 public class users {
     public String name;
@@ -7,6 +7,8 @@ public class users {
     public String password;
     public String role;
 
+    public users(){}
+
     public users(String pName, String pGroup, String pUsername, String pPassword, String pRole) {
         this.name = pName;
         this.group = pGroup;
@@ -14,25 +16,24 @@ public class users {
         this.password = pPassword;
         this.role = pRole;
     }
-
     public void setName(String pName) {
-        this.name = pName;
+        name = pName;
     }
 
     public void setGroup(String pGroup) {
-        this.group = pGroup;
+        group = pGroup;
     }
 
     public void setUsername(String pUsername) {
-        this.username = pUsername;
+        username = pUsername;
     }
 
     public void setPassword(String pPassword) {
-        this.password = pPassword;
+        password = pPassword;
     }
 
     public void setRole(String pRole) {
-        this.group = pRole;
+        role = pRole;
     }
 
     public String getName(){
