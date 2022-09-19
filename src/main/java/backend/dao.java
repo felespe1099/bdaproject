@@ -28,7 +28,6 @@ public class dao {
         String id ="Luis";
         CouchDbConnector conn = connection.connection();
         groups Groups = conn.get(groups.class, "Atletismo");
-        String prueba = String.valueOf(Groups);
         System.out.println(Groups.GroupCategory+Groups.GroupName+Groups.GroupSelected);
     }
 
