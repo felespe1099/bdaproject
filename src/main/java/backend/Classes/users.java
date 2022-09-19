@@ -1,6 +1,17 @@
 package backend.Classes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties({"id","revision"})
+
 public class users {
+    @JsonProperty("_id")
+    public String id;
+
+    @JsonProperty("_rev")
+    public String revision;
+
     public String name;
     public String group;
     public String username;
@@ -16,6 +27,12 @@ public class users {
         this.password = pPassword;
         this.role = pRole;
     }
+
+    public void setId(String pID){id = pID;}
+    public String getId(){return id;}
+
+    public void setRevision(String pRevision){revision = pRevision;}
+    public String getRevision(){return revision;}
     public void setName(String pName) {
         name = pName;
     }
