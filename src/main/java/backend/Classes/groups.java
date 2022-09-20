@@ -3,7 +3,9 @@ package backend.Classes;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonIgnoreProperties({"id","revision"})
+import java.util.List;
+
+@JsonIgnoreProperties({"id","revision","error"})
 
 public class groups {
     @JsonProperty("_id")
