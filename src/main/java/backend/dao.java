@@ -165,9 +165,7 @@ public class dao {
         }
 
         System.out.println("Usuarios: " + Test);
-        List<Integer> result = new ArrayList<Integer>(map.values());
-        result = result.subList(0,map.size());
-        System.out.println(result);
+        System.out.println(map);
     }
 
     public static void main(String[] args) throws MalformedURLException {
@@ -175,13 +173,13 @@ public class dao {
         //TotalSelections();
         //ClassPerCategory();
         //TopClubs();
-        //BottomClubs();
+        BottomClubs();
         //AllGroups();
-        TopStudents();
+        //TopStudents();
     }
 
     //CONSULTA 3 - INCOMPLETA
-    /*public static void TopClubs() throws MalformedURLException{
+    public static void TopClubs() throws MalformedURLException {
         CouchDbConnector conn = connection.connection();
         ViewQuery query = new ViewQuery().designDocId("_design/AllViews").viewName("top-clubs");
         List<groups> Groups = conn.queryView(query, groups.class);
@@ -191,32 +189,20 @@ public class dao {
                 Test.add(Arrays.toString(new String[]{result.GroupName, result.GroupCategory, String.valueOf(result.GroupSelected)}));
             }
         }
-        Collections.sort(Test, new Comparator<groups>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return 0;
-            }
-            public int compare(groups o1, groups o2) {
-                return Integer.compare(o2.GroupSelected, o1.GroupSelected);
-            }
-        });
-        for(int iCount = 0; iCount<Test.size(); iCount++){
-            System.out.println(Test.get(iCount).GroupName+" "+ Test.get(iCount).GroupCategory+ " "+ Test.get(iCount).GroupSelection);
-        }
-        List<String>Resultado = Test.stream().sorted(Comparator.reverseOrder()).toList();
-
-        System.out.println("Clubes: " + Test);
-    }*/
+        System.out.println(Test);
+    }
 
     //CONSULTA 4 - INCOMPLETA
     public static void BottomClubs() throws MalformedURLException{
         CouchDbConnector conn = connection.connection();
         ViewQuery query = new ViewQuery().designDocId("_design/AllViews").viewName("top-clubs");
         List<groups> Groups = conn.queryView(query, groups.class);
+        List<String> Test = new ArrayList<>();
         for(groups result: Groups){
             if(result.GroupName!=null){
-                System.out.println(result.GroupName+" "+result.GroupCategory+" "+result.GroupSelected);
+                Test.add(Arrays.toString(new String[]{result.GroupName, result.GroupCategory, String.valueOf(result.GroupSelected)}));
             }
         }
+        System.out.println(Test);
     }
 }
