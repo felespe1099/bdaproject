@@ -1,16 +1,13 @@
 package backend;
 import backend.Classes.*;
 
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.util.*;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 import org.ektorp.*;
 import backend.Connection.connection;
-import org.ektorp.support.View;
-
-import javax.swing.*;
 
 public class dao {
     CouchDbConnector conn = connection.connection();
@@ -141,7 +138,7 @@ public class dao {
         System.out.println(map);
     }
 
-    //CONSULTA 2 - INCOMPLETA
+    //CONSULTA 2
 
     public static void TopStudents() throws MalformedURLException {
         CouchDbConnector conn = connection.connection();
@@ -163,9 +160,9 @@ public class dao {
                 map.put(String.valueOf(i), retrievedValue + 1);
             }
         }
-
+        List<String> result = map.entrySet().stream().sorted(Map.Entry.<String,Integer>comparingByValue().reversed()).limit(3).map(Map.Entry::getKey).collect(Collectors.toList());
         System.out.println("Usuarios: " + Test);
-        System.out.println(map);
+        System.out.println(result);
     }
 
     public static void main(String[] args) throws MalformedURLException {
@@ -173,36 +170,64 @@ public class dao {
         //TotalSelections();
         //ClassPerCategory();
         //TopClubs();
-        BottomClubs();
+        //BottomClubs();
         //AllGroups();
-        //TopStudents();
+        TopStudents();
     }
 
-    //CONSULTA 3 - INCOMPLETA
+    //CONSULTA 3
     public static void TopClubs() throws MalformedURLException {
         CouchDbConnector conn = connection.connection();
         ViewQuery query = new ViewQuery().designDocId("_design/AllViews").viewName("top-clubs");
         List<groups> Groups = conn.queryView(query, groups.class);
-        List<String> Test = new ArrayList<>();
+        ArrayList<groups> Test = new ArrayList<>();
         for (groups result : Groups) {
             if (result.GroupName != null) {
-                Test.add(Arrays.toString(new String[]{result.GroupName, result.GroupCategory, String.valueOf(result.GroupSelected)}));
+                Test.add(new groups(result.GroupName, result.GroupCategory, result.GroupSelected));
             }
         }
-        System.out.println(Test);
+        Collections.sort(Test, new Comparator<groups>()
+        {
+
+            @Override
+            public int compare(groups o1, groups o2) {
+                return Integer.valueOf(o1.GroupSelected).compareTo(o2.GroupSelected);
+            }
+        });
+        List<String> PreResult = new ArrayList<>();
+        for(int iCount = 0; iCount<Test.size(); iCount++){
+            PreResult.add(Test.get(iCount).GroupName+ " "+ Test.get(iCount).GroupCategory+" "+Test.get(iCount).GroupSelected);
+            //System.out.println(Test.get(iCount).GroupName+ " "+ Test.get(iCount).GroupCategory+" "+Test.get(iCount).GroupSelected);
+        }
+        List<String> Top5 = new ArrayList<>(PreResult.subList(PreResult.size()-5,PreResult.size()));
+        System.out.println(Top5);
     }
 
-    //CONSULTA 4 - INCOMPLETA
+    //CONSULTA 4
     public static void BottomClubs() throws MalformedURLException{
         CouchDbConnector conn = connection.connection();
         ViewQuery query = new ViewQuery().designDocId("_design/AllViews").viewName("top-clubs");
         List<groups> Groups = conn.queryView(query, groups.class);
-        List<String> Test = new ArrayList<>();
+        ArrayList<groups> Test = new ArrayList<>();
         for(groups result: Groups){
             if(result.GroupName!=null){
-                Test.add(Arrays.toString(new String[]{result.GroupName, result.GroupCategory, String.valueOf(result.GroupSelected)}));
+                Test.add(new groups(result.GroupName, result.GroupCategory, result.GroupSelected));
             }
         }
-        System.out.println(Test);
+        Collections.sort(Test, new Comparator<groups>()
+        {
+
+            @Override
+            public int compare(groups o1, groups o2) {
+                return Integer.valueOf(o2.GroupSelected).compareTo(o1.GroupSelected);
+            }
+        });
+        List<String> PreResult = new ArrayList<>();
+        for(int iCount = 0; iCount<Test.size(); iCount++){
+            PreResult.add(Test.get(iCount).GroupName+ " "+ Test.get(iCount).GroupCategory+" "+Test.get(iCount).GroupSelected);
+            //System.out.println(Test.get(iCount).GroupName+ " "+ Test.get(iCount).GroupCategory+" "+Test.get(iCount).GroupSelected);
+        }
+        List<String> Bottom3 = new ArrayList<>(PreResult.subList(PreResult.size()-3,PreResult.size()));
+        System.out.println(Bottom3);
     }
 }
