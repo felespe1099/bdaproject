@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-@JsonIgnoreProperties({"id","revision","error"})
+@JsonIgnoreProperties({"id","revision"})
 
 public class groups {
     @JsonProperty("_id")
