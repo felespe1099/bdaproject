@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54b6cd21-552d-4a90-9076-3202c6904bdc" name="Changes" comment="CRUD de operaciones">
-      <change afterPath="$PROJECT_DIR$/src/main/java/backend/Classes/StudentClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/backend/Classes/groups.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/backend/Classes/groups.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/backend/dao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/backend/dao.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -108,7 +105,7 @@
       <workItem from="1663513984686" duration="666000" />
       <workItem from="1663550368684" duration="3780000" />
       <workItem from="1663602388552" duration="2844000" />
-      <workItem from="1663682529307" duration="26522000" />
+      <workItem from="1663682529307" duration="33850000" />
     </task>
     <task id="LOCAL-00001" summary="Organizacion de archivos">
       <created>1663442823471</created>
@@ -145,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663705645814</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="CRUD de operaciones">
+      <created>1663727588536</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1663727588537</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

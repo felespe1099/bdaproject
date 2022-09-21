@@ -18,6 +18,15 @@ public class dao {
     public dao() throws MalformedURLException {
     }
 
+    //Login
+
+    public boolean Login(String pUsername, String pPassword, String pRole){
+        users Users= conn.get(users.class,pUsername);
+        return Objects.equals(Users.password, pPassword) && Objects.equals(Users.role, pRole);
+    }
+
+    //Registro de una nuevo usuario
+
     public boolean RegisterNewUser(String nombre, String group, String username, String password, String role) {
         try {
             users Users = new users(nombre, group, username, password, role);
@@ -28,6 +37,8 @@ public class dao {
         }
     }
 
+    //Almacena la relacion entre una clase y el estudiante
+
     public boolean StudentClassRelationship(String student, String course) {
         try {
             StudentClass studentClass = new StudentClass(student, course);
@@ -37,6 +48,8 @@ public class dao {
             return false;
         }
     }
+
+    //Registrar una clase
 
     public boolean RegistrerClass(String GroupName, String GroupCategory, int GroupSelected) {
         try {
@@ -53,9 +66,13 @@ public class dao {
         }
     }
 
+    //Revisa si una clase ya fue creada
+
     public boolean AlreadyCreated(String GroupName) {
         return conn.contains(GroupName);
     }
+
+    //Todos los grupos creados
 
     public static void AllGroups() throws MalformedURLException {
         CouchDbConnector conn = connection.connection();
@@ -68,13 +85,7 @@ public class dao {
         }
     }
 
-    /*public static void main(String[] args) throws MalformedURLException, DocumentNotFoundException {
-        String id ="Luis";
-        CouchDbConnector conn = connection.connection();
-        groups Groups = conn.get(groups.class, "Atletismo");
-        System.out.println(Groups.GroupCategory+Groups.GroupName+Groups.GroupSelected);
-    }*/
-
+    //PRUEBA- ELIMINAR
     public static void StudentNames() throws MalformedURLException {
         CouchDbConnector conn = connection.connection();
         ViewQuery query = new ViewQuery().designDocId("_design/AllViews").viewName("student-names");
@@ -89,6 +100,7 @@ public class dao {
         Result.forEach(System.out::println);
     }
 
+    //PRUEBA - SE DEBE ELIMINAR
     public static void TotalSelections() throws MalformedURLException {
         CouchDbConnector conn = connection.connection();
         ViewQuery query = new ViewQuery().designDocId("_design/AllViews").viewName("total-selections");
@@ -101,16 +113,6 @@ public class dao {
         }
         List<String> Resultado = Test.stream().sorted(Comparator.reverseOrder()).toList();
         Resultado.forEach(System.out::println);
-    }
-
-    public static void main(String[] args) throws MalformedURLException {
-        //StudentNames();
-        //TotalSelections();
-        ClassPerCategory();
-        //TopClubs();
-        //BottomClubs();
-        //AllGroups();
-        //TopStudents();
     }
 
     //CONSULTA 1
@@ -139,7 +141,7 @@ public class dao {
         System.out.println(map);
     }
 
-    //CONSULTA 2 - REVISAR
+    //CONSULTA 2 - INCOMPLETA
 
     public static void TopStudents() throws MalformedURLException {
         CouchDbConnector conn = connection.connection();
@@ -163,21 +165,50 @@ public class dao {
         }
 
         System.out.println("Usuarios: " + Test);
-        System.out.println(map);
+        List<Integer> result = new ArrayList<Integer>(map.values());
+        result = result.subList(0,map.size());
+        System.out.println(result);
     }
-    //CONSULTA 3 - REVISAR
-    public static void TopClubs() throws MalformedURLException{
+
+    public static void main(String[] args) throws MalformedURLException {
+        //StudentNames();
+        //TotalSelections();
+        //ClassPerCategory();
+        //TopClubs();
+        //BottomClubs();
+        //AllGroups();
+        TopStudents();
+    }
+
+    //CONSULTA 3 - INCOMPLETA
+    /*public static void TopClubs() throws MalformedURLException{
         CouchDbConnector conn = connection.connection();
         ViewQuery query = new ViewQuery().designDocId("_design/AllViews").viewName("top-clubs");
         List<groups> Groups = conn.queryView(query, groups.class);
-        for(groups result: Groups){
-            if(result.GroupName!=null){
-                System.out.println(result.GroupName+" "+result.GroupCategory+" "+result.GroupSelected);
+        List<String> Test = new ArrayList<>();
+        for (groups result : Groups) {
+            if (result.GroupName != null) {
+                Test.add(Arrays.toString(new String[]{result.GroupName, result.GroupCategory, String.valueOf(result.GroupSelected)}));
             }
         }
-    }
+        Collections.sort(Test, new Comparator<groups>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return 0;
+            }
+            public int compare(groups o1, groups o2) {
+                return Integer.compare(o2.GroupSelected, o1.GroupSelected);
+            }
+        });
+        for(int iCount = 0; iCount<Test.size(); iCount++){
+            System.out.println(Test.get(iCount).GroupName+" "+ Test.get(iCount).GroupCategory+ " "+ Test.get(iCount).GroupSelection);
+        }
+        List<String>Resultado = Test.stream().sorted(Comparator.reverseOrder()).toList();
 
-    //CONSULTA 4 - REVISAR
+        System.out.println("Clubes: " + Test);
+    }*/
+
+    //CONSULTA 4 - INCOMPLETA
     public static void BottomClubs() throws MalformedURLException{
         CouchDbConnector conn = connection.connection();
         ViewQuery query = new ViewQuery().designDocId("_design/AllViews").viewName("top-clubs");
