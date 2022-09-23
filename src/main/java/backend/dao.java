@@ -10,7 +10,15 @@ import org.ektorp.*;
 import backend.Connection.connection;
 
 public class dao {
-    CouchDbConnector conn = connection.connection();
+    static CouchDbConnector conn;
+
+    static {
+        try {
+            conn = connection.connection();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public dao() throws MalformedURLException {
     }
@@ -24,7 +32,7 @@ public class dao {
 
     //Registro de una nuevo usuario
 
-    public boolean RegisterNewUser(String nombre, String group, String username, String password, String role) {
+    public static boolean RegisterNewUser(String nombre, String group, String username, String password, String role) {
         try {
             users Users = new users(nombre, group, username, password, role);
             conn.create(Users.username,Users);
@@ -32,6 +40,10 @@ public class dao {
         } catch (Exception err) {
             return false;
         }
+    }
+
+    public static void main(String[] args) throws MalformedURLException {
+        RegisterNewUser("Gabriel","11-A","gabriel0901","contrasena","Student");
     }
 
     //Almacena la relacion entre una clase y el estudiante
@@ -151,28 +163,17 @@ public class dao {
                 Test.add(String.valueOf(result.student));
             }
         }
-        for (String i: Test) {
+        for (String i : Test) {
             Integer retrievedValue = map.get(i);
             if (null == retrievedValue) {
                 map.put(String.valueOf(i), 1);
-            }
-            else {
+            } else {
                 map.put(String.valueOf(i), retrievedValue + 1);
             }
         }
-        List<String> result = map.entrySet().stream().sorted(Map.Entry.<String,Integer>comparingByValue().reversed()).limit(3).map(Map.Entry::getKey).collect(Collectors.toList());
+        List<String> result = map.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).limit(3).map(Map.Entry::getKey).collect(Collectors.toList());
         System.out.println("Usuarios: " + Test);
         System.out.println(result);
-    }
-
-    public static void main(String[] args) throws MalformedURLException {
-        //StudentNames();
-        //TotalSelections();
-        //ClassPerCategory();
-        //TopClubs();
-        //BottomClubs();
-        //AllGroups();
-        TopStudents();
     }
 
     //CONSULTA 3
